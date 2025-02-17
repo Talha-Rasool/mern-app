@@ -31,7 +31,9 @@ Node.js and npm/yarn installed (for local development).
 
 ## Deployment on AWS EC2
 
-1. Launch an EC2 Instance
+# 1. Launch an EC2 Instance
+
+
 Use an Ubuntu AMI.
 
 Configure the security group to allow inbound traffic on ports:
@@ -44,11 +46,12 @@ Configure the security group to allow inbound traffic on ports:
 
 27017 (MongoDB)
 
-2. SSH into the EC2 Instance
+# 2. SSH into the EC2 Instance
 
 ssh -i your-key.pem ubuntu@ec2-public-ip
 
-3. Install Docker and Docker Compose
+# 3. Install Docker and Docker Compose
+
 sudo apt update
 sudo apt install docker.io
 sudo systemctl start docker
@@ -56,12 +59,12 @@ sudo systemctl enable docker
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-4. Clone the Repository
+# 4. Clone the Repository
 
 git clone https://github.com/your-username/your-repo.git
 cd your-repo
 
-5. Set Up Environment Variables
+# 5. Set Up Environment Variables
 Create a .env file in the backend and frontend directories with the following variables:
 
 # Backend .env
@@ -71,10 +74,10 @@ PORT=5050
 # Frontend .env
 VITE_API_URL=http://backend-ip-address:5050
 
-6. Start the Application
+# 6. Start the Application
 docker-compose up --build -d
 
-7. Access the Application
+# 7. Access the Application
 
 Frontend: http://ec2-public-ip:5173
 
