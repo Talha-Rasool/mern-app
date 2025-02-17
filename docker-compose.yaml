@@ -1,38 +1,41 @@
 services:
   backend:
-    build: ./mern/backend
+    build: ./mern/backend  # Path to your backend Dockerfile
     ports:
-      - "5050:5050" 
+      - "5050:5050"  # Expose backend port
     networks:
       - mern_network
-    environment:
-      MONGO_URI: mongodb://mongo:27017/mydatabase  
+    env_file:
+    - ./mern/backend/.env  # Path to backend .env file
     depends_on:
-      - mongodb
+      - mongodb  # Ensure MongoDB starts first
+
 
   frontend:
-    build: ./mern/frontend
+    build: ./mern/frontend  # Path to your frontend Dockerfile
     ports:
-      - "5173:5173"  
+      - "5173:5173"  # Expose frontend port
     networks:
       - mern_network
-    environment:
-      REACT_APP_API_URL: http://backend:5050 
+    env_file:
+    - ./mern/frontend/.env  # Path to backend .env file
+    depends_on:
+      - backend  # Ensure backend starts first
+
 
   mongodb:
-    image: mongo:latest  
+    image: mongo:latest  # Use the official MongoDB image
     ports:
-      - "27017:27017"  
+      - "27017:27017"  # Expose MongoDB port (optional for external access)
     networks:
       - mern_network
     volumes:
-      - mongo-data:/data/db  
+      - mongo-data:/data/db  # Persist MongoDB data
 
 networks:
   mern_network:
-    driver: bridge 
+    driver: bridge  # Create a bridge network for communication
 
 volumes:
   mongo-data:
     driver: local  # Persist MongoDB data locally
-

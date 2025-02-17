@@ -1,23 +1,26 @@
-# Use the official image as a parent image
-# Description: Dockerfile for the client side of the MERN stack application
-
-# Use the official image as a parent image
+# Use the official Node.js image as the parent image
 FROM node:18.9.1
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the file from your host to your current location
+# Copy package.json and package-lock.json (if available)
 COPY package.json .
 
-# Run the command inside your image filesystem
+# Install dependencies
 RUN npm install
 
-# Inform Docker that the container is listening on the specified port at runtime
-EXPOSE 5173
-
-# Copy the rest of your app's source code from your host to your image filesystem
+# Copy the rest of the application code
 COPY . .
 
-# Run the specified command within the container
+# Copy the .env file
+COPY .env .
+
+# Build the application (for production)
+RUN npm run build
+
+# Expose the port the app runs on
+EXPOSE 5173
+
+# Command to run the application
 CMD ["npm", "run", "dev"]
