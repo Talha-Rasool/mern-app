@@ -92,7 +92,7 @@ jobs:
             # Stop and remove existing containers
             docker-compose down
 
-            # Start new containers with environment variables
+            # Start new containers with environment variabless
             export MONGO_URI=${{ secrets.MONGO_URI }}
             export EC2_PUBLIC_IP=${{ secrets.EC2_HOST }}
             docker-compose up -d
