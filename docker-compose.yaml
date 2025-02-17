@@ -5,8 +5,9 @@ services:
       - "5050:5050"  # Expose backend port
     networks:
       - mern_network
-    env_file:
-    - ./mern/backend/.env  # Path to backend .env file
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=5050
     depends_on:
       - mongodb  # Ensure MongoDB starts first
 
@@ -17,8 +18,8 @@ services:
       - "5173:5173"  # Expose frontend port
     networks:
       - mern_network
-    env_file:
-    - ./mern/frontend/.env  # Path to backend .env file
+    environment:
+      - VITE_API_URL=http://${EC2_PUBLIC_IP}:5050
     depends_on:
       - backend  # Ensure backend starts first
 
