@@ -32,7 +32,7 @@ jobs:
           cd mern/backend
           npm test
 
-    #   - name: Install dependencies (Frontend)
+    #   - name: Install dependencies (Frontend).
     #     run: |
     #       cd mern/frontend
     #       npm install
