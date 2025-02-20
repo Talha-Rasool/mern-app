@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - aws-containerization
+      - aws-containerization  # Trigger on push to the aws-containerization branch
 
 jobs:
   lint-and-test:
