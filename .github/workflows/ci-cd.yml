@@ -19,32 +19,32 @@ jobs:
 
       - name: Install dependencies (Backend)
         run: |
-          cd backend
+          cd mern/backend
           npm install
 
       - name: Run ESLint (Backend)
         run: |
-          cd backend
+          cd mern/backend
           npm run lint
 
       - name: Run tests (Backend)
         run: |
-          cd backend
+          cd mern/backend
           npm test
 
       - name: Install dependencies (Frontend)
         run: |
-          cd frontend
+          cd mern/frontend
           npm install
 
       - name: Run ESLint (Frontend)
         run: |
-          cd frontend
+          cd mern/frontend
           npm run lint
 
       - name: Run tests (Frontend)
         run: |
-          cd frontend
+          cd mern/frontend
           npm test
 
   build-and-push:
