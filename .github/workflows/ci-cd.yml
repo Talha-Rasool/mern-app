@@ -96,7 +96,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
-            cd /home/ubuntu 
+            cd /home/ubuntu/mern-docker           
             docker-compose down
             export MONGO_URI=${{ secrets.MONGO_URI }}
             export EC2_PUBLIC_IP=${{ secrets.EC2_HOST }}
