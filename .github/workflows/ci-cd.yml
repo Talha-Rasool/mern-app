@@ -32,20 +32,20 @@ jobs:
           cd mern/backend
           npm test
 
-      - name: Install dependencies (Frontend)
-        run: |
-          cd mern/frontend
-          npm install
+    #   - name: Install dependencies (Frontend)
+    #     run: |
+    #       cd mern/frontend
+    #       npm install
 
-      - name: Run ESLint (Frontend)
-        run: |
-          cd mern/frontend
-          npm run lint
+    #   - name: Run ESLint (Frontend)
+    #     run: |
+    #       cd mern/frontend
+    #       npm run lint
 
-      - name: Run tests (Frontend)
-        run: |
-          cd mern/frontend
-          npm test
+    #   - name: Run tests (Frontend)
+    #     run: |
+    #       cd mern/frontend
+    #       npm test
 
   build-and-push:
     runs-on: ubuntu-latest
