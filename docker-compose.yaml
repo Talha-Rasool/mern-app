@@ -47,7 +47,7 @@
 
 services:
   backend:
-    image: ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
+    image: ${{ DOCKER_HUB_USERNAME }}/mern-backend:latest
     ports:
       - "5050:5050"
     networks:
@@ -59,7 +59,7 @@ services:
       - mongodb
 
   frontend:
-    image: ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
+    image: ${{ DOCKER_HUB_USERNAME }}/mern-frontend:latest
     ports:
       - "5173:5173"
     networks:

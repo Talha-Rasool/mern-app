@@ -71,12 +71,12 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest 
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest mern/backend
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
 
       - name: Build and push frontend image
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest 
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest mern/frontend
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
 
   deploy:
@@ -94,17 +94,19 @@ jobs:
       - name: Deploy to EC2
       
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "
-          export MONGO_URI=${{ secrets.MONGO_URI }}
-          export EC2_PUBLIC_IP=${{ secrets.EC2_HOST }}
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
-          cd /home/ubuntu/mern-app
-          docker-compose down
-          docker-compose build frontend  # Rebuild frontend to apply VITE_API_URL
-          docker-compose up -d
-          " 
+         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "
+           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
+           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
+           cd /home/ubuntu/mern-app
+           docker-compose down
+           export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
+           export MONGO_URI=${{ secrets.MONGO_URI }}
+           export EC2_PUBLIC_IP=${{ secrets.EC2_HOST }}
+           docker-compose up -d
+         " 
     
           
 
           
+       
+
