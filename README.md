@@ -1,22 +1,18 @@
 # MERN Stack Application with Docker and AWS Deployment
 
-This project is a MERN (MongoDB, Express.js, React, Node.js) stack application containerized using Docker and deployed on AWS EC2. 
-It demonstrates best practices for containerization, environment variable management, and CI/CD integration using GitHub Actions and Jenkins.
+This project is a full-stack MERN (MongoDB, Express.js, React, Node.js) application deployed using a CI/CD pipeline powered by GitHub Actions. The application is containerized using Docker and deployed to an AWS EC2 instance. The CI/CD pipeline automates the process of linting, testing, building, and deploying the application.
 
 ### Features
 
-Frontend: React app served on port 5173.
+ Backend: Built with Node.js and Express.js, providing  APIs for the application.
 
-Backend: Node.js/Express app served on port 5050.
+ Frontend: Built with React, offering a dynamic and responsive user interface.
 
-Database: MongoDB running in a Docker container.
+ Database: MongoDB for storing application data.
 
-Docker Compose: Simplifies local development and deployment.
+ Containerization: Docker is used to containerize both the frontend and backend services.
 
-AWS Deployment: Step-by-step guide to deploy the app on an EC2 instance.
-
-CI/CD: Integration with GitHub Actions and Jenkins for automated testing and deployment.
-
+ CI/CD Pipeline: Automated using GitHub Actions for linting, testing, building Docker images, and deploying to AWS EC2.
 
 ### Prerequisites
 
@@ -27,60 +23,95 @@ AWS account with an EC2 instance.
 Node.js and npm/yarn installed (for local development).
 
 
-### Getting started
+### Technologies Used
 
-## Deployment on AWS EC2
+Frontend: React, Vite
 
-# 1. Launch an EC2 Instance
+Backend: Node.js, Express.js
+
+Database: MongoDB
+
+Containerization: Docker, Docker Compose
+
+CI/CD: GitHub Actions
+
+Cloud Deployment: AWS EC2
+
+## CI CD pipeline
+
+The GitHub Actions workflow consists of the following stages:
+
+Linting and Testing:
+
+2.Linting and testing the backend code using ESLint and Jest.
+
+3.Build and Push Docker Images:
+
+4.Building Docker images for the frontend and backend.
+
+5.Pushing the images to Docker Hub.
+
+6.Deploy to AWS EC2:
+
+7.Pulling the latest Docker images on the EC2 instance.
+
+8.Deploying the application using Docker Compose.
+
+## Docker Compose
+
+1.The docker-compose.yml file defines the services for the application:
+
+2.Backend: Exposes port 5050 and connects to MongoDB.
+
+3.Frontend: Exposes port 5173 and communicates with the backend API.
+
+4.MongoDB: Persists data using a Docker volume.
+
+## Environment Variables
+
+1.The application uses environment variables for configuration stored in Github Secrets, such as:
+
+2.MONGO_URI: Connection string for MongoDB.
+
+3.DOCKER_HUB_USERNAME: Docker Hub username for pushing/pulling images.
+
+4.EC2_PUBLIC_IP: Public IP of the EC2 instance for frontend API calls.
 
 
-Use an Ubuntu AMI.
+## How to Run the Project
 
-Configure the security group to allow inbound traffic on ports:
+1. Clone the repositary
+git clone https://github.com/your-username/mern-app.git
+cd mern-app
 
-22 (SSH)
+2. Set Up Environment Variables in your GithubSecrets:
 
-5050 (Backend)
+DOCKER_HUB_USERNAME=your_docker_hub_username
+MONGO_URI=your_mongo_uri
+EC2_PUBLIC_IP=your_ec2_public_ip
+etc
 
-5173 (Frontend)
+3. Run with Docker Compose:
 
-27017 (MongoDB)
+docker-compose up -d
 
-# 2. SSH into the EC2 Instance
+4.Access the Application:
+Frontend: http://localhost:5173
 
-ssh -i your-key.pem ubuntu@ec2-public-ip
+Backend: http://localhost:5050
 
-# 3. Install Docker and Docker Compose
+### GitHub Actions Workflow
 
-sudo apt update
-sudo apt install docker.io
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+The CI/CD pipeline is defined in .github/workflows/ci-cd.yml and includes:
 
-# 4. Clone the Repository
+Linting and testing the backend.
 
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+Building and pushing Docker images to Docker Hub.
 
-# 5. Set Up Environment Variables
-Create a .env file in the backend and frontend directories with the following variables:
+Deploying the application to an AWS EC2 instance.
 
-# Backend .env
-MONGO_URI=mongodb://mongodb:27017/mydatabase
-PORT=5050
 
-# Frontend .env
-VITE_API_URL=http://backend-ip-address:5050
 
-# 6. Start the Application
-docker-compose up --build -d
 
-# 7. Access the Application
-
-Frontend: http://ec2-public-ip:5173
-
-Backend: http://ec2-public-ip:5050
 
 
