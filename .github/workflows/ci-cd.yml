@@ -92,4 +92,4 @@ jobs:
         run: |
           echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
           export KUBECONFIG=kubeconfig.yaml
-          kubectl apply -f k8s/ --validate=false
+          kubectl apply -f k8s/
