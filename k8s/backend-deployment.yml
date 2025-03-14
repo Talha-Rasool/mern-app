@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mern-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mern-backend
+  template:
+    metadata:
+      labels:
+        app: mern-backend
+    spec:
+      containers:
+        - name: mern-backend
+          image: rasooltalha/mern-backend:latest
+          ports:
+            - containerPort: 5050
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongodb:27017/mydatabase"
+            - name: PORT
+              value: "5050"
